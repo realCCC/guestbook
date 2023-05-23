@@ -20,21 +20,33 @@ import java.util.function.Function;
 public class GuestbookServiceImpl implements GuestbookService{
 
     private final GuestbookRepository repository;
-    @Override
-    public Long register(GuestbookDTO dto){
-        Guestbook entity = dtoToEntity(dto);
-        log.info(entity);
-        repository.save(entity);
 
+    @Override
+    public Long register(GuestbookDTO dto) {
+
+        log.info("DTO____________________");
+        log.info(dto);
+
+        Guestbook entity = dtoToEntity(dto);
+
+        log.info(entity);
+
+        repository.save(entity);
         return entity.getGno();
+
     }
 
     @Override
     public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO) {
+
         Pageable pageable = requestDTO.getPageable(Sort.by("gno").descending());
+
         Page<Guestbook> result = repository.findAll(pageable);
-        Function<Guestbook, GuestbookDTO> fn = (entity -> entityTODto(entity));
+
+
+        Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDTO(entity));
 
         return new PageResultDTO<>(result, fn);
     }
+
 }

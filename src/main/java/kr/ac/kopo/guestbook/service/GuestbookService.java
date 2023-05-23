@@ -21,7 +21,7 @@ public interface GuestbookService {
     }
 
     // Entity를 dto로 변환!
-    default GuestbookDTO entityTODto(Guestbook entity){
+    default GuestbookDTO entityToDTO(Guestbook entity) {
 
         GuestbookDTO dto = GuestbookDTO.builder()
                 .gno(entity.getGno())
@@ -31,6 +31,7 @@ public interface GuestbookService {
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .build();
+
         return dto;
     }
 }

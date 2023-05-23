@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -20,61 +21,81 @@ public class GuestBookRepositoryTests {
     @Autowired
     private GuestbookRepository guestbookRepository;
 
-
-    //Querydsl을 사용해서 특정검색어를 갖는 행들만 선택
     @Test
-    public void testQuery1(){
-        Pageable pageable = PageRequest.of(0,10,Sort.by("gno").descending());
+    public void testQuerydsl1() {
+
+        Pageable pageable = PageRequest.of(0,10, Sort.by("gno").descending());
+
         QGuestbook qGuestbook = QGuestbook.guestbook;
+
         String keyword = "7";
+
         BooleanBuilder builder = new BooleanBuilder();
+
         BooleanExpression expression = qGuestbook.title.contains(keyword);
+
         builder.and(expression);
+
         Page<Guestbook> result = guestbookRepository.findAll(builder, pageable);
+
         result.stream().forEach(guestbook -> {
             System.out.println(guestbook);
         });
     }
 
-    //Querydsl 을 사용해서 특정검색어를 갖는 행들만 선택
-    //다중검색어테스트
     @Test
-    public void testQuery2(){
-        Pageable pageable = PageRequest.of(0,10,Sort.by("gno").ascending());
+    public void testQuerydsl2() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").descending());
+
         QGuestbook qGuestbook = QGuestbook.guestbook;
+
         String keyword = "7";
+
         BooleanBuilder builder = new BooleanBuilder();
-        BooleanExpression expTitle = qGuestbook.title.contains(keyword);
-        BooleanExpression expWriter = qGuestbook.writer.contains(keyword);
-        BooleanExpression expAll = expTitle.and(expWriter);
-        builder.and(expAll);
-        builder.and(qGuestbook.gno.gt(50L));
+
+        BooleanExpression exTitle = qGuestbook.title.contains(keyword);
+
+        BooleanExpression exContent = qGuestbook.content.contains(keyword);
+
+        BooleanExpression exAll = exTitle.or(exContent);
+
+        builder.and(exAll);
+
+        builder.and(qGuestbook.gno.gt(0L));
+
         Page<Guestbook> result = guestbookRepository.findAll(builder, pageable);
+
         result.stream().forEach(guestbook -> {
             System.out.println(guestbook);
         });
+
     }
 
 
     @Test
-    public void insertDummies(){
-        IntStream.rangeClosed(1, 300).forEach(i ->{ //1이상 300이하
+    public void insertDummies() {
+
+        IntStream.rangeClosed(1, 300).forEach(i -> {
             Guestbook guestbook = Guestbook.builder()
                     .title("Title..." + i)
-                    .content("Content..."+i)
-                    .writer("user" + (i % 10)) // 우선순위 높이기위해 ()씀
+                    .content("Content..." + i)
+                    .writer("User" + (i % 10))
                     .build();
             System.out.println(guestbookRepository.save(guestbook));
         });
+
     }
+
 
     @Test
     public void updateTest(){
         Optional<Guestbook> result = guestbookRepository.findById(300L);
+
         if(result.isPresent()){
             Guestbook guestbook = result.get();
             guestbook.changeTitle("Changed Title...");
-            guestbook.changeContent("Changed Content...");
+            guestbook.changeContent("Changed Content");
             guestbookRepository.save(guestbook);
         }
     }
