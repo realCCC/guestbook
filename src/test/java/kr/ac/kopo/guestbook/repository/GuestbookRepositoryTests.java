@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-public class GuestBookRepositoryTests {
+public class GuestbookRepositoryTests {
     @Autowired
     private GuestbookRepository guestbookRepository;
 
