@@ -2,9 +2,15 @@
 # JPA + querydsl + 게시판기능( CRUD )
 <br>
 
-
+## 주요기능
+- 게시글 생성
+- 게시글 삭제
+- 게시글 수정
+- 게시글 페이징
+- 게시글 검색
+##
 ![image](https://github.com/realCCC/guestbook/assets/101503824/fb08f1b9-45f6-4f77-8c98-c18bf5fd3a39)
-
+##
 ## JAVA 폴더 / back-end 처리
 
 ![image](https://github.com/realCCC/guestbook/assets/101503824/7a5c53d1-6661-407f-ad21-0eb4c16c0159)
