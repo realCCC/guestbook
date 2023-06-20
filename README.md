@@ -12,22 +12,29 @@
 ![image](https://github.com/realCCC/guestbook/assets/101503824/fb08f1b9-45f6-4f77-8c98-c18bf5fd3a39)
 ##
 ## JAVA 폴더 / back-end 처리
+<br>
+
+
 
 ![image](https://github.com/realCCC/guestbook/assets/101503824/7a5c53d1-6661-407f-ad21-0eb4c16c0159)
 
 ### Controller
-Controller는 요청을 받고 해당 페이지에 응답을 처리하는 역할
-
-### DTO
-DTO는 데이터 전송 객체로 정보를 임시로 저장공간 <br>
-Entity의 페이징처리, 방명록, 검색기능에 관련된 기능들에 관련된 값들을 임시저장
+Controller는 요청을 받고 해당 페이지에 응답을 처리하는 역할 <br>
+Brower를 통해 mapping 된 Url에 대해 실행
 
 ### Entity 
-Entity는 DB와 연동되는 곳
+Entity는 객체를 의미
+Entity는 DB와 연동되는 곳 // JPA와 querydsl을 통해서 DB와 연동 <br>
 데이터베이스 테이블과 매핑되는 객체
 
 ### Repository 
-repository 는 JPA기술, querydsl을 활용해 손쉽게 처리가 가능(복잡한 쿼리를 쉽게 처리가 가능)
+repository 는 JPA기술, querydsl을 활용해 손쉽게 처리가 가능(복잡한 쿼리를 쉽게 처리가 가능) <br>
+GuestbookRepository > JpaRepository, QuerydslPredicateExecutor 상속받음
+
+### DTO
+DTO는 데이터 전송 객체로 정보를 임시로 저장공간 <br>
+Entity의 페이징처리, 방명록, 검색기능에 관련된 기능들에 관련된 값들을 임시저장 <br>
+
 
 ### Service 
 service계층 에서는 실제로 사용하는 기능들을 처리 <br>
@@ -37,6 +44,13 @@ Impl로 실제로 서비스 계층에서 만든 것을 구현
 ## resources 폴더 / front-end 처리
 
 ![image](https://github.com/realCCC/guestbook/assets/101503824/59f0096e-7f97-47ad-924b-a0079242db19)
+
+template 
+- list.html 목록
+- register.html 등록 // Get방식 , Post방식
+- read.html 조회
+- modify.html 수정 // Get방식 , Post방식
+- remove.html 삭제 // Post방식
 
 ### Thmeleaf 활용
 
